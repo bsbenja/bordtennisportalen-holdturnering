@@ -27,8 +27,8 @@ for (Packages_V in c(
 # Input -------------------------------------------------------------------
 #+ eval=F, warning=F, message=F
 
-StillingURL_V   <- "https://bordtennisportalen.dk/DBTU/HoldTurnering/Stilling/#2,42023,14525,4006,4000,,,,"
-Titel_V         <- "1. Div. Oprykning"
+StillingURL_V   <- "https://bordtennisportalen.dk/DBTU/HoldTurnering/Stilling/#2,42024,14905,4006,4000,,,,"
+Titel_V         <- "🏓 BordtennisLiga Slutspil"
 Klub_V          <- "Hørning"
 Hjemmebane_V    <- "Hørning Idrætscenter"
 VarighedTimer_V <- 3
