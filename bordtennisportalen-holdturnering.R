@@ -21,16 +21,15 @@ for (Packages_V in c(
   }
   suppressWarnings(suppressPackageStartupMessages(library(Packages_V, character.only = TRUE)))
   Sys.setlocale("LC_TIME", "English")
-  setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 }
 
 # Input -------------------------------------------------------------------
 #+ eval=F, warning=F, message=F
 
-StillingURL_V   <- "https://bordtennisportalen.dk/DBTU/HoldTurnering/Stilling/#2,42024,14905,4006,4000,,,,"
-Titel_V         <- "🏓 BordtennisLiga Slutspil"
-Klub_V          <- "Hørning"
-Hjemmebane_V    <- "Hørning Idrætscenter"
+StillingURL_V   <- "https://bordtennisportalen.dk/DBTU/HoldTurnering/Stilling/#2,42025,15034,4006,4000,,,,"
+Titel_V         <- "🏓 1. Division Grundspil"
+Klub_V          <- "Sisu/MBK 1"
+Hjemmebane_V    <- "Sisu/MBK"
 VarighedTimer_V <- 3
 AlleKampeURL_V  <- paste0(
   substr(StillingURL_V,  1, 49), "Udskriv",
