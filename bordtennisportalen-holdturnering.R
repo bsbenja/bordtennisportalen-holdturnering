@@ -1,17 +1,13 @@
-#' ---
-#' title: Bordtennisportalen Holdturnering
-#' output:
-#'    html_document:
-#'      theme: united
-#'      df_print: paged
-#'      code_folding: show
-#'      code_download: yes
-#'      toc: true
-#'      toc_float:
-#'        smooth_scroll: yes
-#' ---
+# Input ----
+#+ eval=F, warning=F, message=F
 
-# Opsætning ---------------------------------------------------------------
+StillingURL_V   <- "https://bordtennisportalen.dk/DBTU/HoldTurnering/Stilling/#2,42025,15034,4006,4000,,,,"
+Titel_V         <- "🏓 1. Division Grundspil"
+Klub_V          <- "Sisu/MBK 1"
+Hjemmebane_V    <- "Sisu/MBK"
+VarighedTimer_V <- 3
+
+# Opsætning ----
 #+ eval=F, warning=F, message=F
 
 for (Packages_V in c(
@@ -23,14 +19,8 @@ for (Packages_V in c(
   Sys.setlocale("LC_TIME", "English")
 }
 
-# Input -------------------------------------------------------------------
-#+ eval=F, warning=F, message=F
+# STG_Holdturnering ----
 
-StillingURL_V   <- "https://bordtennisportalen.dk/DBTU/HoldTurnering/Stilling/#2,42025,15034,4006,4000,,,,"
-Titel_V         <- "🏓 1. Division Grundspil"
-Klub_V          <- "Sisu/MBK 1"
-Hjemmebane_V    <- "Sisu/MBK"
-VarighedTimer_V <- 3
 AlleKampeURL_V  <- paste0(
   substr(StillingURL_V,  1, 49), "Udskriv",
   substr(StillingURL_V, 50, 58), "?page=4&season=",
@@ -38,8 +28,6 @@ AlleKampeURL_V  <- paste0(
   substr(StillingURL_V, 79, 83), "&agegroup=",
   substr(StillingURL_V, 74, 77), "&group=",
   substr(StillingURL_V, 68, 72), "&team=&match=&club=&player=") # Webscraping
-
-# STG_Holdturnering -------------------------------------------------------
 
 STG_Holdturnering <- data.frame(
   "Titel_RD"      = read_html(AlleKampeURL_V) %>% html_nodes("h2")              %>% html_text(),
@@ -54,7 +42,7 @@ STG_Holdturnering <- data.frame(
   stringsAsFactors = F) %>% slice(-1) %>%
   mutate("Rang_RD" = row_number()) %>% select(Rang_RD, everything())
 
-# CALC_Holdturnering ------------------------------------------------------
+# CALC_Holdturnering ----
 #+ eval=F, warning=F, message=F
 
 CALC_Holdturnering <- STG_Holdturnering %>%
@@ -124,7 +112,7 @@ CALC_Holdturnering <- STG_Holdturnering %>%
   
   arrange(Rang_RD)
 
-# DM_Holdturnering --------------------------------------------------------
+# DM_Holdturnering ----
 #+ eval=F, warning=F, message=F
 
 DM_Holdturnering <- CALC_Holdturnering %>%
@@ -140,7 +128,7 @@ DM_Holdturnering <- CALC_Holdturnering %>%
     "Description" = Beskrivelse_DW,
     "Location"    = Spillested_RD)
 
-# Fil ---------------------------------------------------------------------
+# Fil ----
 #+ eval=F, warning=F, message=F
 
 write.table(x = DM_Holdturnering, file = "bordtennisportalen-holdturnering.csv", sep = ",", row.names = F)
