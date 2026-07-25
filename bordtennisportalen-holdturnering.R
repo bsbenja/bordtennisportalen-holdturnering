@@ -1,9 +1,9 @@
 # Input ----
 #+ eval=F, warning=F, message=F
 
-StillingURL_V   <- "https://bordtennisportalen.dk/DBTU/HoldTurnering/Stilling/#2,42025,15034,4006,4000,,,,"
+StillingURL_V   <- "https://bordtennisportalen.dk/DBTU/HoldTurnering/Stilling/#2,42026,15477,4006,4000,,,,"
 Titel_V         <- "🏓 1. Division Grundspil"
-Klub_V          <- "Sisu/MBK 1"
+Klub_V          <- "Sisu/MBK"
 Hjemmebane_V    <- "Sisu/MBK"
 VarighedTimer_V <- 3
 
