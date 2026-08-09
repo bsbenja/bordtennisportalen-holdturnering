@@ -17,7 +17,7 @@ Dette projekt henter automatisk kampdata fra **Bordtennisportalen.dk** og laver 
 |------------------------------------|------------------------------------|
 | `funktioner.R` | Al logik: webscraping, beregning af tider/titler/beskrivelser og ICS-generering. Skal normalt ikke ændres. |
 | `kalendere.R` | Konfiguration – én række pr. kalender. Køres ind af GitHub Actions. |
-| `.github/workflows/opdater-kalender.yml` | Kører `kalendere.R` dagligt og committer opdaterede `.ics`-filer. |
+| `.github/workflows/opdater-kalendere.yml` | Kører `kalendere.R` dagligt og committer opdaterede `.ics`-filer. |
 | `*.ics` | De genererede kalenderfiler, én pr. række/hold, navngivet efter `Filnavn_V`. |
 
 ## Tilføj en ny kalender
@@ -54,4 +54,4 @@ Dette kører `funktioner.R`, installerer manglende R-pakker automatisk, og gener
 
 ## Automatisk opdatering (GitHub Actions)
 
-Workflowet i `.github/workflows/opdater-kalender.yml` kører dagligt kl. 00:00 UTC, kører `kalendere.R` og committer eventuelle ændrede `.ics`-filer tilbage til repoet. Kør det manuelt via fanen *Actions* → *Opdater kampkalendere* → *Run workflow* for at teste.
+Workflowet i `.github/workflows/opdater-kalendere.yml` kører dagligt kl. 00:00 UTC, kører `kalendere.R` og committer eventuelle ændrede `.ics`-filer tilbage til repoet. Kør det manuelt via fanen *Actions* → *Opdater kampkalendere* → *Run workflow* for at teste.
