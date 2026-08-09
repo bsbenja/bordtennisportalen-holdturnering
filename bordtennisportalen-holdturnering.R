@@ -11,7 +11,7 @@ VarighedTimer_V <- 3
 #+ eval=F, warning=F, message=F
 
 for (Packages_V in c(
-  "dplyr", "rvest", "lubridate", "stringr")) {
+  "dplyr", "rvest", "lubridate", "stringr", "purrr")) {
   if (!requireNamespace(Packages_V, quietly = TRUE)) {
     install.packages(Packages_V, dependencies = TRUE)
   }
@@ -126,10 +126,104 @@ DM_Holdturnering <- CALC_Holdturnering %>%
     "End Date"    = SlutDato_DW,
     "End Time"    = SlutTid_DW,
     "Description" = Beskrivelse_DW,
-    "Location"    = Spillested_RD)
+    "Location"    = Spillested_RD,
+    # Rå datoklokkeslæt bevares til ICS-eksporten nedenfor
+    StartDatoTid_DW,
+    SlutDatoTid_DW)
 
-# Fil ----
+# Fil (CSV) ----
 #+ eval=F, warning=F, message=F
 
-write.table(x = DM_Holdturnering, file = "bordtennisportalen-holdturnering.csv", sep = ",", row.names = F)
-shell.exec("")
+write.table(
+  x = DM_Holdturnering %>% select(-StartDatoTid_DW, -SlutDatoTid_DW),
+  file = "bordtennisportalen-holdturnering.csv", sep = ",", row.names = F)
+
+# ICS ----
+#+ eval=F, warning=F, message=F
+
+# as_datetime() i CALC_Holdturnering mærker klokkeslættet som UTC, men det er
+# reelt dansk lokal tid (som vist på bordtennisportalen.dk). til_utc() retter
+# det ved først at "omdøbe" tidszonen til dansk lokal tid, og derefter regne
+# om til det faktiske UTC-tidspunkt (håndterer sommer-/vintertid automatisk).
+til_utc <- function(dansk_lokal_tid) {
+  dansk_lokal_tid %>%
+    force_tz("Europe/Copenhagen") %>%
+    with_tz("UTC")
+}
+
+# Escaper tegn som ICS-formatet (RFC 5545) kræver escapes for
+escape_ics_tekst <- function(tekst) {
+  tekst %>%
+    str_replace_all("\\\\", "\\\\\\\\") %>%
+    str_replace_all(",", "\\\\,") %>%
+    str_replace_all(";", "\\\\;") %>%
+    str_replace_all("\r\n|\n|\r", "\\\\n")
+}
+
+# Folder lange linjer, så ingen linje overstiger 75 tegn (RFC 5545-krav).
+# Fortsættelseslinjer skal starte med et enkelt mellemrum.
+fold_ics_linje <- function(linje, maks_tegn = 75) {
+  if (str_length(linje) <= maks_tegn) return(linje)
+  
+  foerste <- str_sub(linje, 1, maks_tegn)
+  rest <- str_sub(linje, maks_tegn + 1)
+  
+  stykker <- character()
+  while (str_length(rest) > 0) {
+    stykker <- c(stykker, str_sub(rest, 1, maks_tegn - 1))
+    rest <- str_sub(rest, maks_tegn)
+  }
+  
+  paste(c(foerste, stykker), collapse = "\r\n ")
+}
+
+lav_ics <- function(data, filnavn) {
+  
+  Nu_V <- format(with_tz(Sys.time(), "UTC"), "%Y%m%dT%H%M%SZ")
+  
+  VEvents_V <- data %>%
+    mutate(Row_DW = row_number()) %>%
+    pmap_chr(function(Subject, `Start Date`, `Start Time`, `End Date`, `End Time`,
+                       Description, Location, StartDatoTid_DW, SlutDatoTid_DW, Row_DW) {
+      
+      DtStart_V <- format(til_utc(StartDatoTid_DW), "%Y%m%dT%H%M%SZ")
+      DtEnd_V   <- format(til_utc(SlutDatoTid_DW), "%Y%m%dT%H%M%SZ")
+      Uid_V     <- paste0(Row_DW, "-", DtStart_V, "@sisumbk-kampkalender")
+      
+      Linjer_V <- c(
+        "BEGIN:VEVENT",
+        paste0("UID:", Uid_V),
+        paste0("DTSTAMP:", Nu_V),
+        paste0("DTSTART:", DtStart_V),
+        paste0("DTEND:", DtEnd_V),
+        paste0("SUMMARY:", escape_ics_tekst(Subject)),
+        paste0("DESCRIPTION:", escape_ics_tekst(Description)),
+        paste0("LOCATION:", escape_ics_tekst(Location)),
+        "END:VEVENT"
+      )
+      
+      Linjer_V %>%
+        map_chr(fold_ics_linje) %>%
+        paste(collapse = "\r\n")
+    }) %>%
+    paste(collapse = "\r\n")
+  
+  Kalender_V <- paste(
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    paste0("PRODID:-//", Klub_V, "//Kampkalender//DA"),
+    "CALSCALE:GREGORIAN",
+    VEvents_V,
+    "END:VCALENDAR",
+    sep = "\r\n"
+  )
+  
+  # skrives som rå bytes, så der ikke sker dobbelt CRLF-konvertering
+  Con_V <- file(filnavn, open = "wb")
+  writeChar(Kalender_V, Con_V, eos = NULL, useBytes = TRUE)
+  close(Con_V)
+  
+  invisible(Kalender_V)
+}
+
+lav_ics(DM_Holdturnering, "bordtennisportalen-holdturnering.ics")

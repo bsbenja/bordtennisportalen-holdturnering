@@ -1,0 +1,30 @@
+name: Opdater kampkalender
+
+on:
+  schedule:
+    - cron: "0 5 * * *"   # hver dag kl. 05:00 UTC (ca. 06-07 dansk tid)
+  workflow_dispatch:      # gør at du også kan trykke "Run workflow" manuelt
+
+permissions:
+  contents: write
+
+jobs:
+  opdater:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hent repo
+        uses: actions/checkout@v4
+
+      - name: Sæt R op
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Kør script (installerer selv manglende R-pakker)
+        run: Rscript bordtennisportalen-holdturnering.R
+
+      - name: Commit og push opdateret fil
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add bordtennisportalen-holdturnering.ics bordtennisportalen-holdturnering.csv
+          git diff --staged --quiet || git commit -m "Automatisk opdatering af kampkalender"
+          git push
