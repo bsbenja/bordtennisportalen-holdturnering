@@ -6,7 +6,7 @@ source("funktioner.R")
 
 Kalendere_V <- tribble(
   ~Filnavn_V,                       ~StillingURL_V,                                                                           ~Titel_V,                    ~Klub_V,     ~Hjemmebane_V, ~VarighedTimer_V,
-  "1-division-grundspil-2026-27", "https://bordtennisportalen.dk/DBTU/HoldTurnering/Stilling/#2,42026,15477,4006,4000,,,,", "🏓 1. Division Grundspil",  "Sisu/MBK",  "Sisu/MBK",    3,
+  "1-division-grundspil-2026-27", "https://bordtennisportalen.dk/DBTU/HoldTurnering/Stilling/#2,42026,15477,4006,4000,,,,", "Test",  "Sisu/MBK",  "Sisu/MBK",    3,
   "2-division-grundspil-2026-27", "https://bordtennisportalen.dk/DBTU/HoldTurnering/Stilling/#2,42026,15478,4006,4000,,,,", "🏓 2. Division Grundspil",  "Sisu/MBK",  "Sisu/MBK",    3,
 )
 
