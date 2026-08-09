@@ -2,7 +2,7 @@ name: Opdater kampkalendere
 
 on:
   schedule:
-    - cron: "0 5 * * *"   # hver dag kl. 05:00 UTC (ca. 06-07 dansk tid)
+    - cron: "0 0 * * *"   # hver dag kl. 00:00 UTC (kl. 01:00 eller 02:00 dansk tid afhængigt af hhv. vinter-/sommertid)
   workflow_dispatch:      # gør at du også kan trykke "Run workflow" manuelt
 
 permissions:

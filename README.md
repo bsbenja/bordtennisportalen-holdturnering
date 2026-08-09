@@ -9,7 +9,7 @@ Dette projekt henter automatisk kampdata fra **Bordtennisportalen.dk** og laver 
 - Udregner start- og sluttider (korrekt tidszone, håndterer sommer-/vintertid).
 - Laver kampbeskrivelser og titler.
 - Eksporterer en `.ics`-fil pr. konfigureret kalender.
-- Kører automatisk hver dag kl. 05:00 UTC via GitHub Actions og pusher opdaterede filer til repoet.
+- Kører automatisk hver dag kl. 00:00 UTC via GitHub Actions og pusher opdaterede filer til repoet.
 
 ## Projektstruktur
 
@@ -54,4 +54,4 @@ Dette kører `funktioner.R`, installerer manglende R-pakker automatisk, og gener
 
 ## Automatisk opdatering (GitHub Actions)
 
-Workflowet i `.github/workflows/opdater-kalender.yml` kører dagligt kl. 05:00 UTC, kører `kalendere.R` og committer eventuelle ændrede `.ics`-filer tilbage til repoet. Kør det manuelt via fanen *Actions* → *Opdater kampkalendere* → *Run workflow* for at teste.
+Workflowet i `.github/workflows/opdater-kalender.yml` kører dagligt kl. 00:00 UTC, kører `kalendere.R` og committer eventuelle ændrede `.ics`-filer tilbage til repoet. Kør det manuelt via fanen *Actions* → *Opdater kampkalendere* → *Run workflow* for at teste.
