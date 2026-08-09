@@ -2,14 +2,14 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Sisu/MBK//Kampkalender//DA
 CALSCALE:GREGORIAN
-X-WR-CALNAME:🏓 1. Division Grundspil
+X-WR-CALNAME:Test
 X-WR-TIMEZONE:Europe/Copenhagen
 BEGIN:VEVENT
 UID:1-20260912T100000Z@1-division-grundspil-2026-27
-DTSTAMP:20260809T142715Z
+DTSTAMP:20260809T143637Z
 DTSTART:20260912T100000Z
 DTEND:20260912T130000Z
-SUMMARY:🏓 1. Division Grundspil på udebane mod B 75 2
+SUMMARY:Test på udebane mod B 75 2
 DESCRIPTION:Kl. 12:00: B 75 2 VS Sisu/MBK 1\n\n--------------------\nBTDK S
  enior: Herre 1. Division Grundspil Grundspil 12.09.2026.\n\nLink til still
  ing i rækken:\nhttps://bordtennisportalen.dk/DBTU/HoldTurnering/Stilling/#
@@ -18,10 +18,10 @@ LOCATION:Hirtshals Idrætscenter
 END:VEVENT
 BEGIN:VEVENT
 UID:2-20261003T090000Z@1-division-grundspil-2026-27
-DTSTAMP:20260809T142715Z
+DTSTAMP:20260809T143637Z
 DTSTART:20261003T090000Z
 DTEND:20261003T120000Z
-SUMMARY:🏓 1. Division Grundspil på hjemmebane mod OB Bordtennis 1
+SUMMARY:Test på hjemmebane mod OB Bordtennis 1
 DESCRIPTION:Kl. 11:00: Sisu/MBK 1 VS OB Bordtennis 1\n\n-------------------
  -\nBTDK Senior: Herre 1. Division Grundspil Grundspil 03.10.2026.\n\nLink 
  til stilling i rækken:\nhttps://bordtennisportalen.dk/DBTU/HoldTurnering/S
@@ -30,10 +30,10 @@ LOCATION:Sisu/MBK
 END:VEVENT
 BEGIN:VEVENT
 UID:3-20261024T090000Z@1-division-grundspil-2026-27
-DTSTAMP:20260809T142715Z
+DTSTAMP:20260809T143637Z
 DTSTART:20261024T090000Z
 DTEND:20261024T120000Z
-SUMMARY:🏓 1. Division Grundspil på hjemmebane mod Trelleborg TTC 1
+SUMMARY:Test på hjemmebane mod Trelleborg TTC 1
 DESCRIPTION:Kl. 11:00: Sisu/MBK 1 VS Trelleborg TTC 1\n\n------------------
  --\nBTDK Senior: Herre 1. Division Grundspil Grundspil 24.10.2026.\n\nLink
   til stilling i rækken:\nhttps://bordtennisportalen.dk/DBTU/HoldTurnering/
@@ -42,11 +42,10 @@ LOCATION:Sisu/MBK
 END:VEVENT
 BEGIN:VEVENT
 UID:4-20261114T110000Z@1-division-grundspil-2026-27
-DTSTAMP:20260809T142715Z
+DTSTAMP:20260809T143637Z
 DTSTART:20261114T110000Z
 DTEND:20261114T170000Z
-SUMMARY:🏓 1. Division Grundspil på udebane mod Hillerød GI 1 + Virum-Sorgen
- fri BTK 1
+SUMMARY:Test på udebane mod Hillerød GI 1 + Virum-Sorgenfri BTK 1
 DESCRIPTION:Kl. 12:00: Hillerød GI 1 VS Sisu/MBK 1\nKl. 12:00: OB Bordtenni
  s 1 VS CPH - Hvidovre 2\nKl. 12:00: Virum-Sorgenfri BTK 1 VS B 75 2\nKl. 1
  2:00: Trelleborg TTC 1 VS Roskilde Bordtennis\, BTK 61 2\nKl. 15:00: Virum
@@ -60,11 +59,11 @@ LOCATION:Idrættens Hus Roskilde\, 1. sal
 END:VEVENT
 BEGIN:VEVENT
 UID:5-20261128T110000Z@1-division-grundspil-2026-27
-DTSTAMP:20260809T142715Z
+DTSTAMP:20260809T143637Z
 DTSTART:20261128T110000Z
 DTEND:20261128T170000Z
-SUMMARY:🏓 1. Division Grundspil på udebane mod Roskilde Bordtennis\, BTK 61
-  2 + CPH - Hvidovre 2
+SUMMARY:Test på udebane mod Roskilde Bordtennis\, BTK 61 2 + CPH - Hvidovre
+  2
 DESCRIPTION:Kl. 12:00: Sisu/MBK 1 VS Roskilde Bordtennis\, BTK 61 2\nKl. 12
  :00: Virum-Sorgenfri BTK 1 VS Trelleborg TTC 1\nKl. 12:00: Hillerød GI 1 V
  S OB Bordtennis 1\nKl. 12:00: CPH - Hvidovre 2 VS B 75 2\nKl. 15:00: Sisu/
